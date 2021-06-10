@@ -9,7 +9,7 @@ import { TransactionPage } from '@pages/transaction';
 import { Installed } from '@pages/install';
 import { InstalledSignIn } from '@pages/install/sign-in';
 import { PopupHome } from '@pages/popup';
-import { PopupSend } from '@pages/popup/send';
+import { PopupSendForm } from '@pages/popup/send-form';
 import { PopupReceive } from '@pages/popup/receive';
 import { AddNetwork } from '@pages/popup/add-network';
 import { SetPasswordPage } from '@pages/set-password';
@@ -96,7 +96,7 @@ export const Routes: React.FC = () => {
       </AccountGateRoute>
       <AccountGateRoute path={ScreenPaths.POPUP_SEND}>
         <React.Suspense fallback={<></>}>
-          <PopupSend />
+          <PopupSendForm />
         </React.Suspense>
       </AccountGateRoute>
       <AccountGateRoute path={ScreenPaths.POPUP_RECEIVE}>

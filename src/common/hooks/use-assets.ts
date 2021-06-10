@@ -7,13 +7,13 @@ import {
   transferableAssetsState,
 } from '@store/assets/tokens';
 
-export const useAssets = () => {
+export function useAssets() {
   return useLoadable(assetsState);
-};
+}
 
-export const useTransferableAssets = () => {
+export function useTransferableAssets() {
   return useLoadable(transferableAssetsState);
-};
+}
 
 export function useFungibleTokenState() {
   return useLoadable(fungibleTokensState);
