@@ -9,7 +9,7 @@ import {
 } from '@stacks/blockchain-api-client';
 import { fetcher } from '@common/api/wrapped-fetch';
 
-enum API_CLIENT_KEYS {
+enum ApiClientKeys {
   CONFIG = 'clients/CONFIG',
   SMART_CONTRACTS = 'clients/SMART_CONTRACTS',
   ACCOUNTS = 'clients/ACCOUNTS',
@@ -18,7 +18,7 @@ enum API_CLIENT_KEYS {
 }
 
 export const apiClientConfiguration = selector({
-  key: API_CLIENT_KEYS.CONFIG,
+  key: ApiClientKeys.CONFIG,
   get: ({ get }) => {
     const network = get(currentNetworkState);
     return new Configuration({ basePath: network.url, fetchApi: fetcher });
@@ -26,7 +26,7 @@ export const apiClientConfiguration = selector({
 });
 
 export const smartContractClientState = selector({
-  key: API_CLIENT_KEYS.SMART_CONTRACTS,
+  key: ApiClientKeys.SMART_CONTRACTS,
   get: ({ get }) => {
     const config = get(apiClientConfiguration);
     return new SmartContractsApi(config);
@@ -34,7 +34,7 @@ export const smartContractClientState = selector({
 });
 
 export const accountsApiClientState = selector({
-  key: API_CLIENT_KEYS.ACCOUNTS,
+  key: ApiClientKeys.ACCOUNTS,
   get: ({ get }) => {
     const config = get(apiClientConfiguration);
     return new AccountsApi(config);
@@ -42,7 +42,7 @@ export const accountsApiClientState = selector({
 });
 
 export const infoApiClientState = selector({
-  key: API_CLIENT_KEYS.INFO,
+  key: ApiClientKeys.INFO,
   get: ({ get }) => {
     const config = get(apiClientConfiguration);
     return new InfoApi(config);
@@ -50,7 +50,7 @@ export const infoApiClientState = selector({
 });
 
 export const blocksApiClientState = selector({
-  key: API_CLIENT_KEYS.BLOCKS,
+  key: ApiClientKeys.BLOCKS,
   get: ({ get }) => {
     const config = get(apiClientConfiguration);
     return new BlocksApi(config);

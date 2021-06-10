@@ -8,12 +8,12 @@ import {
 import { currentStacksNetworkState } from '@store/networks';
 import { correctNonceState } from '@store/accounts/nonce';
 
-enum KEYS {
+enum FungibleTokenTransferKeys {
   ASSET_STATE = 'transaction/ASSET_STATE',
 }
 
 export const makeFungibleTokenTransferState = selector({
-  key: KEYS.ASSET_STATE,
+  key: FungibleTokenTransferKeys.ASSET_STATE,
   get: ({ get }) => {
     const { asset, currentAccount, network, balances, stxAddress, nonce } = get(
       waitForAll({

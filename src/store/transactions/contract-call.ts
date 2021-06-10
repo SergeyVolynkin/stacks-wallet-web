@@ -5,7 +5,7 @@ import { TransactionTypes } from '@stacks/connect';
 import { ContractInterfaceResponse } from '@stacks/blockchain-api-client';
 import { ContractInterfaceFunction } from '@stacks/rpc-client';
 
-enum KEYS {
+enum ContractCallKeys {
   CONTRACT_INTERFACE = 'transactions/CONTRACT_INTERFACE',
   CONTRACT_SOURCE = 'transactions/CONTRACT_SOURCE',
   FUNCTION = 'transactions/FUNCTION',
@@ -18,7 +18,7 @@ type ContractInterfaceResponseWithFunctions = Omit<ContractInterfaceResponse, 'f
 export const transactionContractInterfaceState = selector<
   undefined | ContractInterfaceResponseWithFunctions
 >({
-  key: KEYS.CONTRACT_INTERFACE,
+  key: ContractCallKeys.CONTRACT_INTERFACE,
   get: async ({ get }) => {
     const { payload, client } = get(
       waitForAll({
@@ -42,7 +42,7 @@ export const transactionContractInterfaceState = selector<
 });
 
 export const transactionContractSourceState = selector({
-  key: KEYS.CONTRACT_SOURCE,
+  key: ContractCallKeys.CONTRACT_SOURCE,
   get: async ({ get }) => {
     const { payload, client } = get(
       waitForAll({
@@ -64,7 +64,7 @@ export const transactionContractSourceState = selector({
   },
 });
 export const transactionFunctionsState = selector({
-  key: KEYS.FUNCTION,
+  key: ContractCallKeys.FUNCTION,
   get: ({ get }) => {
     const { payload, contractInterface } = get(
       waitForAll({

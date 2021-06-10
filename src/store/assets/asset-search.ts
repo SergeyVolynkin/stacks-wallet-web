@@ -4,19 +4,19 @@ import { assetsState } from '@store/assets/tokens';
 import { getFullyQualifiedAssetName } from '@common/hooks/use-selected-asset';
 import { AssetWithMeta } from '@store/assets/types';
 
-enum ASSET_SEARCH_KEYS {
+enum AssetSearchKeys {
   ASSET_ID = 'asset-search/ASSET_ID',
   ASSET = 'asset-search/ASSET',
   INPUT = 'asset-search/INPUT',
 }
 
 export const selectedAssetIdState = atom<string | undefined>({
-  key: ASSET_SEARCH_KEYS.ASSET_ID,
+  key: AssetSearchKeys.ASSET_ID,
   default: undefined,
 });
 
 export const selectedAssetStore = selector<AssetWithMeta | undefined>({
-  key: ASSET_SEARCH_KEYS.ASSET,
+  key: AssetSearchKeys.ASSET,
   get: ({ get }) => {
     const fqn = get(selectedAssetIdState);
     const assets = get(assetsState);
@@ -25,7 +25,7 @@ export const selectedAssetStore = selector<AssetWithMeta | undefined>({
 });
 
 export const searchInputStore = atom<string>({
-  key: ASSET_SEARCH_KEYS.INPUT,
+  key: AssetSearchKeys.INPUT,
   default: '',
 });
 

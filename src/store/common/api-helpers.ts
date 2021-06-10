@@ -1,17 +1,17 @@
 import { atom, atomFamily } from 'recoil';
 
-enum KEYS {
+enum ApiHelperKeys {
   REVALIDATION_INDEX = 'api/REVALIDATION_INDEX',
   INTERVAL = 'clients/INTERVAL',
 }
 
 export const apiRevalidation = atom({
-  key: KEYS.REVALIDATION_INDEX,
+  key: ApiHelperKeys.REVALIDATION_INDEX,
   default: 0,
 });
 
 export const intervalState = atomFamily<number, number>({
-  key: KEYS.INTERVAL,
+  key: ApiHelperKeys.INTERVAL,
   default: 0,
   effects_UNSTABLE: (intervalMilliseconds: number) => [
     ({ setSelf }) => {

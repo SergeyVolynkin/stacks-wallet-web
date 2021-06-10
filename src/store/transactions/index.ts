@@ -10,7 +10,7 @@ import { generateSignedTransaction } from '@common/transactions/transactions';
 import { getPostCondition, handlePostConditions } from '@common/transactions/postcondition-utils';
 import { TransactionPayload } from '@stacks/connect';
 
-enum KEYS {
+enum TransactionKeys {
   POST_CONDITIONS = 'transactions/POST_CONDITIONS',
   PENDING_TRANSACTION = 'transactions/PENDING_TRANSACTION',
   SIGNED_TRANSACTION = 'transactions/SIGNED_TRANSACTION',
@@ -20,7 +20,7 @@ enum KEYS {
 }
 
 export const postConditionsState = selector({
-  key: KEYS.POST_CONDITIONS,
+  key: TransactionKeys.POST_CONDITIONS,
   get: ({ get }) => {
     const { payload, address } = get(
       waitForAll({
@@ -42,7 +42,7 @@ export const postConditionsState = selector({
 });
 
 export const pendingTransactionState = selector({
-  key: KEYS.PENDING_TRANSACTION,
+  key: TransactionKeys.PENDING_TRANSACTION,
   get: ({ get }) => {
     const { payload, postConditions, network } = get(
       waitForAll({
@@ -57,7 +57,7 @@ export const pendingTransactionState = selector({
 });
 
 export const signedTransactionState = selector({
-  key: KEYS.SIGNED_TRANSACTION,
+  key: TransactionKeys.SIGNED_TRANSACTION,
   get: async ({ get }) => {
     const { account, pendingTransaction, nonce } = get(
       waitForAll({
@@ -76,7 +76,7 @@ export const signedTransactionState = selector({
 });
 
 export const transactionNetworkVersionState = selector({
-  key: KEYS.TX_VERSION,
+  key: TransactionKeys.TX_VERSION,
   get: ({ get }) =>
     get(currentNetworkState).chainId === ChainID.Mainnet
       ? TransactionVersion.Mainnet
@@ -87,10 +87,10 @@ export type TransactionPayloadWithAttachment = TransactionPayload & {
   attachment?: string;
 };
 export const isUnauthorizedTransactionState = atom<boolean>({
-  key: KEYS.ERROR_IS_UNAUTHORIZED,
+  key: TransactionKeys.ERROR_IS_UNAUTHORIZED,
   default: false,
 });
 export const transactionBroadcastErrorState = atom<string | null>({
-  key: KEYS.ERROR_BROADCAST_FAILURE,
+  key: TransactionKeys.ERROR_BROADCAST_FAILURE,
   default: null,
 });

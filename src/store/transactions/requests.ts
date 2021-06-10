@@ -1,7 +1,7 @@
 import { atom, selector } from 'recoil';
 import { getPayloadFromToken } from '@store/transactions/utils';
 
-enum KEYS {
+enum RequestKeys {
   REQUEST_TOKEN = 'requests/REQUEST_TOKEN',
   REQUEST_TOKEN_PAYLOAD = 'requests/REQUEST_TOKEN_PAYLOAD',
   ADDRESS = 'requests/ADDRESS',
@@ -9,7 +9,7 @@ enum KEYS {
 }
 
 export const requestTokenState = atom<string | null>({
-  key: KEYS.REQUEST_TOKEN,
+  key: RequestKeys.REQUEST_TOKEN,
   default: null,
   effects_UNSTABLE: [
     ({ setSelf, trigger }) => {
@@ -28,7 +28,7 @@ export const requestTokenState = atom<string | null>({
 });
 
 export const requestTokenPayloadState = selector({
-  key: KEYS.REQUEST_TOKEN_PAYLOAD,
+  key: RequestKeys.REQUEST_TOKEN_PAYLOAD,
   get: ({ get }) => {
     const token = get(requestTokenState);
     return token ? getPayloadFromToken(token) : null;
@@ -36,11 +36,11 @@ export const requestTokenPayloadState = selector({
 });
 
 export const transactionRequestStxAddressState = selector({
-  key: KEYS.ADDRESS,
+  key: RequestKeys.ADDRESS,
   get: ({ get }) => get(requestTokenPayloadState)?.stxAddress,
 });
 
 export const transactionRequestNetwork = selector({
-  key: KEYS.NETWORK,
+  key: RequestKeys.NETWORK,
   get: ({ get }) => get(requestTokenPayloadState)?.network,
 });
