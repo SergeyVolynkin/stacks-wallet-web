@@ -23,10 +23,13 @@ export function useSendAmountFieldActions({
   const handleSetSendMax = useCallback(() => {
     if (!selectedAsset || !balances.value) return;
     if (isStx) {
+      const availableBalance = new BigNumber(balances.value.stx.balance).minus(
+        balances.value.stx.locked
+      );
       const txFee = microStxToStx(
         new BigNumber(fee ?? 1).multipliedBy(STX_TRANSFER_TX_SIZE_BYTES).toString()
       );
-      const stx = microStxToStx(balances.value.stx.balance).minus(txFee);
+      const stx = microStxToStx(availableBalance.toString()).minus(txFee);
       setFieldValue('amount', stx.toNumber());
     } else {
       if (balance) setFieldValue('amount', removeCommas(balance));
