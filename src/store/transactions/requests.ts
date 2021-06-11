@@ -1,11 +1,13 @@
 import { atom, selector } from 'recoil';
 import { getPayloadFromToken } from '@store/transactions/utils';
+import { feesApiClientState } from '@store/common/api-clients';
 
 enum RequestKeys {
   REQUEST_TOKEN = 'requests/REQUEST_TOKEN',
   REQUEST_TOKEN_PAYLOAD = 'requests/REQUEST_TOKEN_PAYLOAD',
   ADDRESS = 'requests/ADDRESS',
   NETWORK = 'requests/NETWORK',
+  FEE = 'requests/FEE',
 }
 
 export const requestTokenState = atom<string | null>({
@@ -43,4 +45,11 @@ export const transactionRequestStxAddressState = selector({
 export const transactionRequestNetwork = selector({
   key: RequestKeys.NETWORK,
   get: ({ get }) => get(requestTokenPayloadState)?.network,
+});
+
+export const feeRateState = selector({
+  key: RequestKeys.FEE,
+  get: async ({ get }) => {
+    return get(feesApiClientState).getFeeTransfer() as unknown as Promise<number>;
+  },
 });

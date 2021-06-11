@@ -107,7 +107,6 @@ export const AssetSearchField: React.FC<AssetSearchFieldProps> = memo(
         return item?.contractAddress || item?.name || '';
       },
       onSelectedItemChange: ({ selectedItem }) => {
-        console.log('on item change');
         onItemClick();
         handleUpdateSelectedAsset(selectedItem || undefined);
       },

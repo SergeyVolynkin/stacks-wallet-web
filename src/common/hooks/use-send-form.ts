@@ -1,4 +1,5 @@
 import { FormikProps } from 'formik';
+
 import { useFetchBalances } from '@common/hooks/account/use-account-info';
 import { useSelectedAsset } from '@common/hooks/use-selected-asset';
 import { usePrevious } from '@stacks/ui';
@@ -7,23 +8,30 @@ import React, { useCallback, useEffect } from 'react';
 import { microStxToStx } from '@common/stacks-utils';
 import { FormValues } from '@pages/popup/send-form';
 import { removeCommas } from '@common/token-utils';
+import { STX_TRANSFER_TX_SIZE_BYTES } from '@common/constants';
+import { useCurrentFee } from './transaction/use-current-fee';
+import BigNumber from 'bignumber.js';
 
 export function useSendAmountFieldActions({
   setFieldValue,
 }: Pick<FormikProps<FormValues>, 'setFieldValue'>) {
   const balances = useFetchBalances();
   const { selectedAsset, balance } = useSelectedAsset();
+  const fee = useCurrentFee();
   const isStx = selectedAsset?.type === 'stx';
 
   const handleSetSendMax = useCallback(() => {
     if (!selectedAsset || !balances.value) return;
     if (isStx) {
-      const stx = microStxToStx(balances.value.stx.balance);
+      const txFee = microStxToStx(
+        new BigNumber(fee ?? 1).multipliedBy(STX_TRANSFER_TX_SIZE_BYTES).toString()
+      );
+      const stx = microStxToStx(balances.value.stx.balance).minus(txFee);
       setFieldValue('amount', stx.toNumber());
     } else {
       if (balance) setFieldValue('amount', removeCommas(balance));
     }
-  }, [balance, setFieldValue, balances, selectedAsset, isStx]);
+  }, [selectedAsset, balances.value, isStx, fee, setFieldValue, balance]);
 
   const handleOnKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -51,10 +59,7 @@ export function useSendAmountFieldActions({
     },
     [selectedAsset]
   );
-  return {
-    handleSetSendMax,
-    handleOnKeyDown,
-  };
+  return { handleSetSendMax, handleOnKeyDown };
 }
 
 interface SendFormEffectOptions

@@ -6,6 +6,7 @@ import {
   SmartContractsApi,
   InfoApi,
   BlocksApi,
+  FeesApi,
 } from '@stacks/blockchain-api-client';
 import { fetcher } from '@common/api/wrapped-fetch';
 
@@ -15,6 +16,7 @@ enum ApiClientKeys {
   ACCOUNTS = 'clients/ACCOUNTS',
   INFO = 'clients/INFO',
   BLOCKS = 'clients/BLOCKS',
+  FEES = 'clients/FEES',
 }
 
 export const apiClientConfiguration = selector({
@@ -54,5 +56,13 @@ export const blocksApiClientState = selector({
   get: ({ get }) => {
     const config = get(apiClientConfiguration);
     return new BlocksApi(config);
+  },
+});
+
+export const feesApiClientState = selector({
+  key: ApiClientKeys.FEES,
+  get: ({ get }) => {
+    const config = get(apiClientConfiguration);
+    return new FeesApi(config);
   },
 });

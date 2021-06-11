@@ -67,7 +67,6 @@ const SendForm = (props: SendFormProps) => {
 
   const onItemClick = useCallback(() => {
     if (assets.contents === 1) {
-      console.log('item click do nothing');
       return;
     }
     setValues({ ...values, amount: '' });
@@ -81,7 +80,6 @@ const SendForm = (props: SendFormProps) => {
     >
       <Stack spacing="loose" flexDirection="column" flexGrow={1}>
         <AssetSearch onItemClick={onItemClick} />
-        lkjlksdjf
         <AmountField
           setFieldValue={setFieldValue}
           value={values.amount || 0}

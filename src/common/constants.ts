@@ -16,6 +16,8 @@ export const KEBAB_REGEX = /[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g;
 export const POPUP_WIDTH = 442;
 export const POPUP_HEIGHT = 646;
 
+export const STX_TRANSFER_TX_SIZE_BYTES = 180;
+
 export const SIP_010 = {
   mainnet: {
     address: 'SP3FBR2AGK5H9QBDH3EEN6DF8EK8JY7RX8QJ5SVTE',
